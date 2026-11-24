@@ -1,6 +1,6 @@
 package com.example.titans;
 import net.fabricmc.api.ModInitializer;
-import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
+import net.fabricmc.fabric.api.creativetab.v1.CreativeModeTabEvents;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
@@ -21,7 +21,7 @@ public class Titans implements ModInitializer {
     @Override public void onInitialize() {
         ARMORED_SERUM = reg("armored_serum", TitanType.ARMORED);
         JAW_SERUM = reg("jaw_serum", TitanType.JAW);
-        ItemGroupEvents.modifyEntriesEvent(CreativeModeTabs.TOOLS_AND_UTILITIES).register(e -> { e.accept(ARMORED_SERUM); e.accept(JAW_SERUM); });
+        CreativeModeTabEvents.modifyOutputEvent(CreativeModeTabs.TOOLS_AND_UTILITIES).register(e -> { e.accept(ARMORED_SERUM); e.accept(JAW_SERUM); });
         TitanNet.init();
         TitanManager.init();
     }

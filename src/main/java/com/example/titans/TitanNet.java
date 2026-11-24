@@ -33,9 +33,9 @@ public final class TitanNet {
         @Override public Type<? extends CustomPacketPayload> type() { return TYPE; }
     }
     public static void init() {
-        PayloadTypeRegistry.playC2S().register(ActionPayload.TYPE, ActionPayload.CODEC);
-        PayloadTypeRegistry.playS2C().register(StatePayload.TYPE, StatePayload.CODEC);
-        PayloadTypeRegistry.playS2C().register(ShakePayload.TYPE, ShakePayload.CODEC);
+        PayloadTypeRegistry.serverboundPlay().register(ActionPayload.TYPE, ActionPayload.CODEC);
+        PayloadTypeRegistry.clientboundPlay().register(StatePayload.TYPE, StatePayload.CODEC);
+        PayloadTypeRegistry.clientboundPlay().register(ShakePayload.TYPE, ShakePayload.CODEC);
         ServerPlayNetworking.registerGlobalReceiver(ActionPayload.TYPE, (p, ctx) -> TitanManager.handleAction(ctx.player(), p));
     }
 }
