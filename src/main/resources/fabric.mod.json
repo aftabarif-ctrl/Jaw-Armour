@@ -1,0 +1,7 @@
+{
+  "schemaVersion": 1, "id": "titans", "version": "${version}", "name": "Armored & Jaw Titans",
+  "description": "Transform into the Armored Titan or the Jaw Titan.",
+  "environment": "*", "license": "MIT",
+  "entrypoints": { "main": ["com.example.titans.Titans"], "client": ["com.example.titans.client.TitansClient"] },
+  "depends": { "fabricloader": ">=0.19.3", "minecraft": "~26.3", "java": ">=25", "fabric-api": "*" }
+}
