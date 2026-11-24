@@ -9,9 +9,6 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EntitySpawnReason;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.LightningBolt;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 
@@ -41,13 +38,14 @@ public final class Fx {
         l.sendParticles(ParticleTypes.LARGE_SMOKE, c.x, c.y + 0.5, c.z, count, spread, 0.6, spread, 0.04);
         l.sendParticles(ParticleTypes.CAMPFIRE_COSY_SMOKE, c.x, c.y + 0.5, c.z, Math.max(1, count / 3), spread, 0.3, spread, 0.06);
     }
+    /** Fake lightning: spark column + flash particles + thunder (avoids the LightningBolt entity API). */
     public static void lightning(ServerLevel l, Vec3 p) {
-        LightningBolt b = EntityType.LIGHTNING_BOLT.create(l, EntitySpawnReason.EVENT);
-        if (b == null) return;
-        b.setPos(p.x, p.y, p.z);
-        b.setVisualOnly(true);
-        l.addFreshEntity(b);
+        for (double y = 0; y < 40; y += 0.8) {
+            l.sendParticles(ParticleTypes.ELECTRIC_SPARK, p.x + (l.getRandom().nextDouble() - 0.5) * 0.8, p.y + y, p.z + (l.getRandom().nextDouble() - 0.5) * 0.8, 3, 0.3, 0.2, 0.3, 0.5);
+            l.sendParticles(ParticleTypes.END_ROD, p.x, p.y + y, p.z, 1, 0.1, 0.1, 0.1, 0.02);
+        }
+        sound(l, p, net.minecraft.sounds.SoundEvents.LIGHTNING_BOLT_THUNDER, 6f, 0.9f);
     }
     /** Single place to fix if the velocity-sync API changes between versions. */
-    public static void push(Entity e, Vec3 v) { e.setDeltaMovement(v); e.hurtMarked = true; }
+    public static void push(Entity e, Vec3 v) { e.setDeltaMovement(v); e.syncVelocity = true; }
 }
