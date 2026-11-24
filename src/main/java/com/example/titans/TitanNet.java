@@ -17,10 +17,10 @@ public final class TitanNet {
         @Override public Type<? extends CustomPacketPayload> type() { return TYPE; }
     }
     /** server -> client: form + remaining cooldown ticks */
-    public record StatePayload(int type, int c0, int c1, int c2, int c3) implements CustomPacketPayload {
+    public record StatePayload(int form, int c0, int c1, int c2, int c3) implements CustomPacketPayload {
         public static final Type<StatePayload> TYPE = new Type<>(Titans.id("state"));
         public static final StreamCodec<ByteBuf, StatePayload> CODEC = StreamCodec.composite(
-            ByteBufCodecs.VAR_INT, StatePayload::type, ByteBufCodecs.VAR_INT, StatePayload::c0,
+            ByteBufCodecs.VAR_INT, StatePayload::form, ByteBufCodecs.VAR_INT, StatePayload::c0,
             ByteBufCodecs.VAR_INT, StatePayload::c1, ByteBufCodecs.VAR_INT, StatePayload::c2,
             ByteBufCodecs.VAR_INT, StatePayload::c3, StatePayload::new);
         @Override public Type<? extends CustomPacketPayload> type() { return TYPE; }

@@ -32,7 +32,7 @@ public class TitansClient implements ClientModInitializer {
         AB3 = key("ability3", GLFW.GLFW_KEY_V, cat); DODGE = key("dodge", GLFW.GLFW_KEY_LEFT_ALT, cat);
 
         ClientPlayNetworking.registerGlobalReceiver(TitanNet.StatePayload.TYPE, (p, ctx) -> {
-            type = TitanType.of(p.type()); cd[0] = p.c0(); cd[1] = p.c1(); cd[2] = p.c2(); cd[3] = p.c3(); });
+            type = TitanType.of(p.form()); cd[0] = p.c0(); cd[1] = p.c1(); cd[2] = p.c2(); cd[3] = p.c3(); });
         ClientPlayNetworking.registerGlobalReceiver(TitanNet.ShakePayload.TYPE, (p, ctx) -> {
             float i = p.intensity() / 100f; if (i >= shake || shakeTicks <= 0) { shake = i; shakeTicks = p.ticks(); } });
 
